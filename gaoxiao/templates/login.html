@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{%- block content %}
+<div class="post-bottom-section">
+<div class="primary">
+    <form action="{{url_for("frontend.login")}}" method="post" id="loginform" enctype=multipart/form-data >
+
+  <div>
+    <label for="name"> Name <span>*</span></label>
+    <input id="name" name="name" type="text" tabindex="1" />
+  </div>
+  <div>
+    <label for="password">Password<span>*</span></label>
+    <input id="password" name="password" type="password" tabindex="2" />
+  </div>
+  <div class="no-border">
+    <input class="button" type="submit" value="Login" tabindex="3" />
+  </div>
+</form>
+</div>
+</div>
+{%- endblock %}
+
+
+

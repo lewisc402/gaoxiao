@@ -1,0 +1,13 @@
+<div class="about-me">
+    <p>
+    {%- if get_flashed_messages() -%}
+    <div id="flashed">
+        <mark>
+        {% for category, msg in get_flashed_messages(with_categories=true) %}
+        <span class="flash-{{ category }}">{{ msg }}</span>
+        {% endfor %}
+        </mark>
+    </div>
+    {%- endif -%}
+    </p>
+</div>

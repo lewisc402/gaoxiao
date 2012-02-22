@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{%- block content %}
+<div class="single">
+    <form action="." method=post enctype=multipart/form-data>
+      <dl>
+        <dd><input type=text name=title>
+        <dd><textarea row="40" col="20" name=body></textarea>
+        <dd><input type=file name=file>
+        <dd><input type=submit value=sb3xia>
+        <br>
+      </dl>
+    </form>
+    <p>
+    {% if post %}
+      <a href="/show_post/{{ post._id }}"> {{ post.title }} </a>
+      {{ post.body}}
+      {{ post.date_creation}}
+      <p>
+      {% for im in img %}
+      <a href="/show_image/{{post._id}}/{{ im.filename }}"><img src=/show_image/{{post._id}}/{{ im.filename }} height="330" width="500"></a>
+      <p>{{ im.description }}
+      <a href="/delete_image/{{ post._id }}/{{ im._id }}"> Delete </a>
+      | <a href="/update_image/{{ post._id }}/{{ im._id }}"> Update </a>
+      <p>
+      {% endfor %}
+    {% endif %}
+</div>
+{%- endblock %}
+
+

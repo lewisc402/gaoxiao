@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{%- block content %}
+<article class="post single">
+
+{% if post %}
+<!-- primary -->
+<div class="primary">
+    {% if action=='update' %}
+        <div class="formsection" style="float:middle">
+        <form action="/admin/update_post/{{ post._id }}" method="post" id="uploadform" enctype=multipart/form-data >
+            <input id="title" name="title" value="{{ post.title}}" type="text" tabindex="1" />
+            <textarea id="text" name="text" rows="10" cols="18" tabindex="4">{{ post.text }}</textarea>
+            <input class="button" type="submit" value="update" tabindex="5" />
+        </form>
+        </div>
+    {% else %}
+        <h2><a href="/admin/show_post/{{ post._id }}"> {{ post.title }} </a></h2>
+        <p>{{ post.text|replace('\r\n','<br>')|safe }}
+        <a href="/admin/update_post/{{ post._id }}">(update | </a> 
+        <a href="/admin/delete_post/{{ post._id }}"> delete)</a> 
+        </p>
+    {% endif %}
+  
+{% for im in img %}
+    <div class="image-section">
+        <a href="/admin/show_image/{{ post._id }}/{{ im._id}}">
+            <img src="/admin/show_image/{{ post._id }}/{{ im._id}}" alt="image post" height="330" width="520"/>
+        </a>
+    </div>
+    {% if im._id|string==image_id|string -%}
+    <div class="formsection" style="float:middle">
+    <form action="/admin/update_image/{{ post._id }}/{{ im._id }}" method="post" id="uploadform" enctype=multipart/form-data >
+        <input id="description" name="description" value="{{ im.description }}" type="text" tabindex="1" />
+        <input class="button" type="submit" value="update" tabindex="5" />
+    </form>
+    </div>
+    {% else %}
+        <p> {{ im.description }}(
+        <a style="color:#666666" href="/admin/update_image/{{ post._id }}/{{ im._id }}">update</a> |
+        <a style="color:#666666" href="/admin/delete_image/{{ post._id }}/{{ im._id }}">delete</a> )
+        </p>
+    {% endif %}
+
+{% endfor %}
+  <!-- /primary -->
+</div>
+
+<aside>
+    <div class="post-meta">
+        <h4>Post Info</h4>
+        <ul>
+           <li class="user"><a href="">Lewis</a></li>
+           <li class="time"><a href="">{{ post.date_creation|string|truncate(length=16,killwords=true,end='')}}</a></li>
+        </ul>
+    </div>
+</aside>
+
+{% endif %}
+
+<!-- /post -->
+
+</article>
+
+<div class="formsection" style="float:right; margin:0px 40px 0px 0px;">
+    <form action="." method="post" id="uploadform" enctype=multipart/form-data >
+
+      <div>
+        <label for="description"> description<span>*</span></label>
+        <input id="description" name="description" value="image description" type="text" tabindex="1" />
+      </div>
+      <div>
+        <input type=file name=file>
+      </div>
+      <div>
+      <div class="no-border">
+        <input class="button" type="submit" value="Add New Image" tabindex="5" />
+      </div>
+    </form>
+</div>
+
+{%- endblock %}
+
+

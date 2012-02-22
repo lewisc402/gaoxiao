@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{%- block content %}
+<div class="post-bottom-section">
+
+  <div class="primary">
+
+    <form action="{{ url_for('admin.upload')}}" method="post" id="uploadform" enctype=multipart/form-data >
+
+      <div>
+        <label for="title"> Title <span>*</span></label>
+        <input id="title" name="title" value="Your Title" type="text" tabindex="1" />
+      </div>
+      <div>
+        <label for="tags">Tags<span>    (please seperate by ",")</span></label>
+        <input id="tags" name="tags" type="text" tabindex="2" />
+      </div>
+      <div>
+        <label for="text">Your Text<span>*</span></label>
+        <textarea id="text" name="text" rows="10" cols="18" tabindex="3"></textarea>
+      </div>
+      <div>
+          <input type=file name=file>
+      </div>
+      <div class="no-border">
+        <input class="button" type="submit" value="Post" tabindex="4" />
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+{%- endblock %}
+

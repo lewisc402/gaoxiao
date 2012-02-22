@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{%- block content %}
+{% for p in post %}
+<article class="post">
+<!-- primary -->
+<div class="primary">
+    <h2><a href="/show_post/{{ p._id }}"> {{ p.title }} </a></h2> 
+    <p class="post-info">
+        <span>{{ p.date_creation|string|truncate(length=16,killwords=true,end='') }} </span>
+        <!-- <span><a href=""> Tags: {{ p.tags|string }} </a></span> -->
+    </p>
+    <p>
+    {{ p.text|replace('\r\n','<br>')|safe|truncate(length=120,killwords=true,end='') }} 
+        <a href="/show_post/{{ p._id }}">   ...More....</a>
+    </p>
+    {% if p.front_page %}
+        <div class="image-section">
+            <img src="/show_image/{{ p._id }}/{{ p.front_page }}" alt="image post" height="330" width="498"/>
+        </div>
+    {% endif %}
+  <!-- /primary -->
+</div>
+<!-- /post -->
+</article>
+{% endfor %}
+
+{%- endblock %}
+
+

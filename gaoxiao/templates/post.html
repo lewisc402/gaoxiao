@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{%- block content %}
+<article class="post single">
+
+{% if post %}
+<!-- primary -->
+<div class="primary">
+    <h2><a href="/show_post/{{ post._id }}"> {{ post.title }} </a></h2>
+    <p>{{ post.text|replace('\r\n','<br>')|safe }}</p>
+  
+{% for im in img %}
+    <div class="image-section">
+        <a href="/show_image/{{ post._id }}/{{ im._id}}">
+            <img src="/show_image/{{ post._id }}/{{ im._id}}" alt="image post" height="330" width="520"/>
+        </a>
+    </div>
+    <p> {{ im.description }}</p>
+{% endfor %}
+  <!-- /primary -->
+</div>
+
+<aside>
+    <div class="post-meta">
+        <h4>Post Info</h4>
+        <ul>
+           <li class="user"><a href="">Lewis</a></li>
+           <li class="comment"><a href=""> {{ post.comments|count }} Comments</a></li>
+           <li class="time"><a href="">{{ post.date_creation|string|truncate(length=16,killwords=true,end='')}}</a></li>
+        </ul>
+    </div>
+</aside>
+
+<!-- /post -->
+</article>
+{% if post.comments %}
+<div class="post-bottom-section">
+        <h4>{{ post.comments|count }} comments</h4>
+    <div class="primary">
+        {% for cmt in post.comments %}
+        <ol class="commentlist">
+                <li class="depth-1">
+                    <div class="comment-info">
+                        <img alt="" src="{{url_for(".static", filename="images/gravatar.jpg")}}" class="avatar" height="42" width="42" />
+                        <cite>
+                            <a href="#">{{ cmt.name }}</a> Says: <br />
+                            <span class="comment-data"><a href="#comment-63" title="">{{ cmt.comment_datetime|string|truncate(length=16,killwords=true,end='') }}</a></span>
+                        </cite>
+                    </div>
+                    <div class="comment-text">
+                        <p> {{ cmt.comment }} </p>
+                    </div>
+                </li>
+        <!-- /comment-list -->
+        </ol>
+        {% endfor %}
+    <!-- /primary -->
+    </div>
+</div>
+{% endif %}
+
+<div class="post-bottom-section" style="float:right">
+<h4>Leave a Reply</h4>
+<div class="primary">
+    <form action="{{url_for('frontend.add_comment', file_id=post._id)}}" method="post" id="commentform">
+      <div>
+        <label for="name"> Name<span>*</span></label>
+        <input id="name" name="name" value="Your Name" type="text" tabindex="1" />
+      </div>
+      <div>
+        <label for="comment"> Comment<span>*</span></label>
+        <textarea id="comment" name="comment" rows="2" cols="18" tabindex="2"></textarea>
+      </div>
+      <div class="no-border">
+        <input class="button" type="submit" value="Post" tabindex="5" />
+      </div>
+    </form>
+</div>
+</div>
+
+{% endif %}
+{%- endblock %}

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{%- block content %}
+<div class="single">
+    <form action="." method=post>
+      <dl>
+        <dt>Program:
+        <dd><input type=text size=30 name=program>
+        <dd><input type=submit value=sb2xia>
+        <br>
+      </dl>
+    </form>
+    <p>
+    {{ pgms|replace(' ','&nbsp;')|safe }}
+    <p>
+    ERROR:<br>
+================================================ <br>
+    {% for e in err %}
+        {{ e|safe }}<br>
+    {% endfor %}
+    </p>
+    <p>
+    WARN:<br>
+================================================ <br>
+    {% for w in warn %}
+        {{ w|safe}}<br>
+    {% endfor %}
+    </p>
+</div>
+{%- endblock %}
+
+

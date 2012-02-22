@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{%- block content %}
+<div class="single">
+    <form action="." method=post>
+      <dl>
+        <dt>Type(ONL\BAT):
+        <dd><input type=text size=30 name=type>
+        <dt>Program:
+        <dd><input type=text size=30 name=program>
+        <dt>Table:
+        <dd><input type=text size=30 name=table>
+        <dd><input type=submit value=sb1xia>
+      </dl>
+    </form>
+    <p>
+
+    the column numbers are: {{ counter }}
+    {% for clm in data %}
+        <p> {{ clm }} </p>
+    {% endfor %}
+    <p>
+=======================================================================
+    {% for bk in book%}
+        <p> {{ bk|safe }} </p>
+    {% endfor %}
+</div>
+{%- endblock %}
+
+

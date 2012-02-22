@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{%- block content %}
+{% for p in post %}
+<article class="post single">
+<!-- primary -->
+<div class="primary">
+    <h2><a href="/admin/show_post/{{ p._id }}"> {{ p.title }} </a></h2>
+    <div class="image-section">
+      {% if p.front_page %}
+      <img src="/admin/show_image/{{ p._id }}/{{p.front_page}}" alt="image post" height="330" width="498"/>
+      {% endif %}
+    </div>
+
+    <p> {{ p.text|replace('\r\n','<br>')|safe }}</p>
+  <!-- /primary -->
+</div>
+
+<aside>
+    <div class="post-meta">
+        <h4>Post Info</h4>
+        <ul>
+           <li class="user"><a href="#">Lewis</a></li>
+           <li class="comment"><a href="#"> {{ p.comments|count }} Comments</a></li>
+           <li class="time"><a href="#">{{ p.date_creation|string|truncate(length=16,killwords=true,end='')}}</a></li>
+        </ul>
+    </div>
+</aside>
+<!-- /post -->
+</article>
+{% endfor %}
+
+{%- endblock %}
+{%- block sidebar %}
+<div class="sidemenu">
+    <p><a class="more" href="{{ url_for("admin.upload") }}">New Post &raquo;</a></p>
+</div>
+{%- endblock %}
+
